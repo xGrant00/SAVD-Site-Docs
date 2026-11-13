@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>SAVD Site Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: white page, one centered reading column, sticky chip nav; big tap targets; SAVD type (Archivo Expanded / Geist / Geist Mono) and colors from savd.css. Light only, on purpose. */
+:root {
+  --paper: #ffffff; --ink: #0a0a0a; --ink-2: #474747; --ink-3: #737373;
+  --line: #e7e7e7; --line-2: #d4d4d4; --soft: #f4f5f4; --green: #224940; --green-2: #2f6355;
+  --green-soft: #e9f1ee; --mint: #9cc9b8; --warn: #fbf3e2; --warn-ink: #714500;
+  --display: "Archivo", "Geist", system-ui, sans-serif;
+  --body: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r-sm: 10px; --r-md: 14px; --r-lg: 20px;
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before { transition: none !important; } }
+body { background: var(--paper); color: var(--ink); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+p, h1, h2, h3, ol, ul { margin: 0; }
+a { color: var(--green); text-underline-offset: 3px; }
+b { font-weight: 600; }
+:focus-visible { outline: 2.5px solid var(--green); outline-offset: 3px; border-radius: 6px; }
+.x { width: .62em; height: .86em; display: inline-block; vertical-align: -.06em; }
+
+.wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 720px) { .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); } }
+
+.d { font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; letter-spacing: -.025em; line-height: .95; text-wrap: balance; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--green); display: inline-flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: ""; width: 6px; height: 6px; background: currentColor; transform: rotate(45deg); flex: none; }
+
+/* top */
+.top .wrap { padding-block: 22px 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.wm { height: 17px; width: auto; color: var(--ink); display: block; }
+.top__tag { font: 500 11px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); display: inline-flex; gap: 6px; align-items: center; }
+
+.hero .wrap { padding-block: clamp(40px, 8vw, 88px) clamp(32px, 6vw, 64px); display: grid; gap: clamp(28px, 4vw, 44px); }
+body { background: radial-gradient(900px 640px at 100% 0%, #eaf2ee 0%, rgba(234,242,238,0) 70%) no-repeat, var(--paper); }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(32px, 5vw, 56px); align-items: center; }
+@media (min-width: 940px) { .hero__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); } }
+.hero__head { display: grid; gap: 18px; justify-items: start; }
+.hero h1 { font-size: clamp(36px, 10.5vw, 84px); }
+@media (min-width: 940px) { .hero h1 { font-size: clamp(48px, 6.2vw, 80px); } }
+.hero__cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.btn { position: relative; overflow: hidden; isolation: isolate; display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 24px; border-radius: var(--r-md); background: var(--ink); color: #fff; text-decoration: none; font: 700 12.5px/1 var(--display); font-stretch: 112%; letter-spacing: .06em; text-transform: uppercase; }
+.btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--green); transform: translateY(101%); transition: transform .45s cubic-bezier(.16,1,.3,1); }
+.btn:hover::before { transform: none; }
+.btn svg { width: 16px; height: 16px; transition: transform .3s; }
+.btn:hover svg { transform: translateX(3px); }
+.btn--line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.btn--line::before { background: var(--ink); }
+.btn--line:hover { color: #fff; }
+
+/* editor illustration */
+.ed { margin: 0; width: 100%; border-radius: 18px; background: #fff; border: 1px solid var(--line-2); box-shadow: 0 2px 4px rgba(0,0,0,.04), 0 30px 60px -24px rgba(16,40,33,.28); overflow: visible; position: relative; }
+.ed__top { height: 44px; display: flex; align-items: center; gap: 12px; padding: 0 12px; border-bottom: 1px solid var(--line); position: relative; }
+.ed__dots { display: flex; gap: 5px; }
+.ed__dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--line-2); }
+.ed__pg { margin: 0 auto; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; background: var(--soft); font: 500 12px/1 var(--body); }
+.ed__pg svg { width: 10px; height: 10px; }
+.ed__save { position: relative; height: 30px; padding: 0 14px; border-radius: 8px; background: var(--green); color: #fff; display: inline-flex; align-items: center; font: 600 12.5px/1 var(--body); }
+.ed__body { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); min-height: 250px; }
+.ed__side { border-right: 1px solid var(--line); padding: 12px 10px; display: grid; gap: 5px; align-content: start; }
+.ed__lab { font: 500 9.5px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); padding: 4px 6px 6px; }
+.ed__row { position: relative; font: 500 11.5px/1.2 var(--body); padding: 8px; border-radius: 7px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ed__row--on { background: var(--green-soft); color: var(--green); font-weight: 600; box-shadow: inset 0 0 0 1.5px var(--green); overflow: visible; }
+.ed__row--add { color: var(--green); }
+.ed__view { padding: 12px; background: #fafafa; border-radius: 0 0 18px 0; display: grid; gap: 8px; align-content: start; }
+.ed__hdr { height: 24px; border-radius: 999px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.08); display: flex; align-items: center; justify-content: space-between; padding: 0 10px; }
+.ed__hdr .wm { height: 7px; }
+.ed__hdr i { width: 22px; height: 6px; border-radius: 3px; background: var(--line-2); }
+.ed__ban { height: 116px; border-radius: 10px; background: linear-gradient(135deg, #224940, #2f6355 60%, #9cc9b8 160%); color: #fff; padding: 12px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; box-shadow: inset 0 0 0 2px var(--green), 0 0 0 3px #fff, 0 0 0 4.5px var(--green); }
+.ed__ban span { font: 800 17px/.95 var(--display); font-stretch: 125%; text-transform: uppercase; }
+.ed__ban b { font: 600 9.5px/1 var(--mono); text-transform: uppercase; letter-spacing: .05em; background: #fff; color: var(--ink); padding: 6px 8px; border-radius: 6px; }
+.ed__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.ed__cards i { height: 54px; border-radius: 8px; background: #ececec; }
+.mk { position: absolute; width: 24px; height: 24px; border-radius: 8px; background: var(--ink); color: #fff; display: grid; place-items: center; font: 800 11px/1 var(--display); font-stretch: 125%; box-shadow: 0 0 0 3px #fff; z-index: 2; }
+.mk--1 { left: -10px; top: -10px; }
+.mk--2 { right: -8px; top: -9px; }
+.mk--3 { right: -10px; top: -12px; background: var(--green); animation: ping 2.4s ease-out infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 3px #fff, 0 0 0 3px rgba(34,73,64,.45); } 70%, 100% { box-shadow: 0 0 0 3px #fff, 0 0 0 14px rgba(34,73,64,0); } }
+@media (prefers-reduced-motion: reduce) { .mk--3 { animation: none; } }
+@media (max-width: 520px) {
+  .ed__body { grid-template-columns: minmax(0, 1fr); }
+  .ed__side { border-right: 0; border-bottom: 1px solid var(--line); grid-template-columns: minmax(0, 1fr); }
+  .ed__row:not(.ed__row--on) { display: none; }
+  .ed__lab { display: none; }
+  .ed__view { border-radius: 0 0 18px 18px; }
+}
+.hero h1 em { font-style: normal; color: var(--green); }
+.hero__lede { font-size: clamp(17px, 2vw, 20px); color: var(--ink-2); max-width: 44ch; }
+.steps3 { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.steps3 li { background: var(--soft); border-radius: var(--r-lg); padding: 20px; display: grid; gap: 8px; align-content: start; }
+.steps3 .n { width: 36px; height: 36px; border-radius: 11px; background: var(--ink); color: #fff; display: grid; place-items: center; font: 800 15px/1 var(--display); font-stretch: 125%; }
+.steps3 li:last-child .n { background: var(--green); }
+.steps3 b { font: 800 17px/1.1 var(--display); font-stretch: 112%; text-transform: uppercase; }
+.steps3 p { color: var(--ink-2); font-size: 15px; }
+
+/* nav */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: rgba(255,255,255,.96); }
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: rgba(255,255,255,.94); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); border-block: 1px solid var(--line); }
+.nav ol { list-style: none; padding: 10px 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.nav ol::-webkit-scrollbar { display: none; }
+.nav a { flex: none; display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 999px; background: var(--soft); color: var(--ink); text-decoration: none; font: 500 14px/1 var(--body); white-space: nowrap; transition: background .2s, color .2s; }
+.nav a:hover { background: #e9ebe9; }
+.nav a.on { background: var(--ink); color: #fff; }
+
+/* chapters */
+.ch { padding-block: clamp(48px, 8vw, 88px) 0; display: grid; gap: 20px; }
+.ch__head { display: grid; gap: 12px; }
+.ch h2 { font-size: clamp(30px, 5.4vw, 56px); }
+.ch__lede { font-size: clamp(16px, 1.8vw, 18px); color: var(--ink-2); max-width: 58ch; }
+.sub { font: 800 16px/1.1 var(--display); font-stretch: 112%; text-transform: uppercase; margin-top: 14px; }
+
+/* click path */
+.path { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.path span { display: inline-flex; align-items: center; min-height: 34px; padding: 4px 12px; border-radius: 9px; background: var(--soft); font: 500 14px/1.2 var(--body); }
+.path i { font-style: normal; color: var(--ink-3); font-size: 14px; }
+.path span:last-child { background: var(--ink); color: #fff; }
+.path--sm span { min-height: 28px; padding: 3px 9px; font-size: 13px; border-radius: 7px; }
+.path--sm span:last-child { background: var(--green-soft); color: var(--green); font-weight: 600; }
+
+/* page diagram + words */
+.learn { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (min-width: 820px) { .learn { grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 28px; } }
+.mock { border: 1.5px solid var(--line-2); border-radius: 22px; padding: 12px; display: grid; gap: 8px; background: #fff; max-width: 360px; width: 100%; }
+.mock__bar { height: 26px; border-radius: 8px; background: var(--ink); display: flex; align-items: center; padding: 0 10px; }
+.mock__bar .wm { height: 8px; color: #fff; }
+.strip { border-radius: 10px; padding: 10px; display: grid; gap: 6px; position: relative; }
+.strip--a { background: #dfe9e5; height: 92px; }
+.strip--b { background: var(--soft); }
+.strip--c { background: var(--green); color: #fff; }
+.strip__lab { font: 500 10px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.blocks { display: flex; gap: 6px; flex-wrap: wrap; }
+.blk { height: 30px; flex: 1 1 60px; border-radius: 7px; border: 1.5px dashed var(--green); background: #fff; display: grid; place-items: center; font: 500 10px/1 var(--mono); color: var(--green); text-transform: uppercase; letter-spacing: .04em; }
+.callout { position: absolute; right: 8px; top: 8px; font: 500 10px/1 var(--mono); text-transform: uppercase; letter-spacing: .05em; background: var(--ink); color: #fff; padding: 5px 7px; border-radius: 6px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 10px; }
+.word { border: 1px solid var(--line); border-radius: var(--r-md); padding: 16px; display: grid; gap: 4px; align-content: start; }
+.word b { font: 800 15px/1.1 var(--display); font-stretch: 112%; text-transform: uppercase; }
+.word p { color: var(--ink-2); font-size: 15px; }
+
+.rules { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 10px; }
+.rules li { background: var(--green-soft); border-radius: var(--r-md); padding: 16px 18px; display: grid; gap: 4px; }
+.rules b { font-size: 16px; }
+.rules p { color: var(--ink-2); font-size: 15px; }
+
+/* search + filters */
+.find { position: relative; }
+.find input { width: 100%; height: 58px; border-radius: 16px; border: 2px solid var(--line-2); background: #fff; color: var(--ink); padding: 0 18px 0 50px; font: 400 17px var(--body); -webkit-appearance: none; appearance: none; }
+.find input::placeholder { color: var(--ink-3); }
+.find input:focus { outline: none; border-color: var(--green); }
+.find svg { position: absolute; left: 18px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); color: var(--ink-3); pointer-events: none; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.filters { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.filters::-webkit-scrollbar { display: none; }
+.fbtn { flex: none; height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line-2); background: #fff; color: var(--ink); font: 500 14px/1 var(--body); cursor: pointer; }
+.fbtn[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.count { font: 500 12px/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); }
+.none { padding: 28px 18px; border: 1.5px dashed var(--line-2); border-radius: var(--r-lg); color: var(--ink-3); text-align: center; }
+
+/* tasks */
+.tgroup { display: grid; gap: 8px; }
+.tgroup + .tgroup { margin-top: 18px; }
+.tgroup > h3 { font: 500 12px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); padding-left: 2px; }
+.task { border: 1.5px solid var(--line); border-radius: var(--r-lg); background: #fff; transition: border-color .2s, box-shadow .2s; }
+.task[open] { border-color: var(--ink); box-shadow: 0 10px 30px -18px rgba(0,0,0,.35); }
+.task > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; min-height: 64px; padding: 12px 16px 12px 20px; }
+.task > summary::-webkit-details-marker { display: none; }
+.task__t { font: 600 17px/1.3 var(--body); }
+.time { font: 500 11px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--green); background: var(--green-soft); padding: 6px 8px; border-radius: 7px; white-space: nowrap; }
+.time--dev { color: var(--warn-ink); background: var(--warn); }
+.chev { width: 32px; height: 32px; border-radius: 10px; background: var(--soft); display: grid; place-items: center; transition: transform .25s, background .2s; }
+.chev svg { width: 14px; height: 14px; }
+.task[open] .chev { transform: rotate(180deg); background: var(--ink); color: #fff; }
+.task__body { padding: 0 20px 22px; display: grid; gap: 16px; }
+.how { list-style: none; padding: 0; counter-reset: s; display: grid; gap: 12px; }
+.how li { counter-increment: s; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; font-size: 16px; color: var(--ink-2); }
+.how li::before { content: counter(s); width: 30px; height: 30px; border-radius: 9px; background: var(--ink); color: #fff; display: grid; place-items: center; font: 800 13px/1 var(--display); font-stretch: 125%; }
+.how li b { color: var(--ink); }
+.how li:last-child::before { background: var(--green); }
+.good { background: var(--soft); border-radius: var(--r-md); padding: 12px 14px; font-size: 15px; color: var(--ink-2); }
+.good b { color: var(--ink); }
+.word-tag { display: inline-block; font: 500 .88em/1.2 var(--mono); background: var(--green-soft); color: var(--green); padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+@media (max-width: 480px) {
+  .task > summary { grid-template-columns: minmax(0, 1fr) auto; padding-left: 16px; }
+  .task > summary .time { grid-column: 1; grid-row: 2; justify-self: start; }
+  .task > summary .chev { grid-column: 2; grid-row: 1 / span 2; }
+  .task__body { padding: 0 16px 20px; }
+}
+
+/* settings */
+.sets { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 10px; }
+.set { border: 1px solid var(--line); border-radius: var(--r-md); padding: 16px 18px; display: grid; gap: 8px; align-content: start; }
+.set__top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.set__top b { font-size: 16px; }
+.now { font: 500 12px/1.2 var(--mono); color: var(--ink); background: var(--soft); border-radius: 6px; padding: 5px 8px; display: inline-flex; gap: 6px; align-items: center; }
+.set p { font-size: 15px; color: var(--ink-2); }
+.dot { width: 12px; height: 12px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.15); display: inline-block; flex: none; }
+.swrow { display: flex; flex-wrap: wrap; gap: 6px; }
+.sw { display: inline-flex; gap: 6px; align-items: center; height: 30px; padding: 0 10px; border-radius: 8px; background: var(--soft); font-size: 13.5px; }
+
+/* page parts */
+.parts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 10px; align-items: start; }
+.pc { border: 1px solid var(--line); border-radius: var(--r-lg); padding: 18px; display: grid; gap: 10px; min-width: 0; }
+.pc h3 { font: 800 15px/1.15 var(--display); font-stretch: 112%; text-transform: uppercase; }
+.pc__what { color: var(--ink-2); font-size: 15.5px; }
+.pc__where { display: grid; gap: 6px; }
+.pc__where > b, .pc__row b { font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; }
+.pc__row { font-size: 14px; color: var(--ink-2); display: grid; gap: 6px; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag { display: inline-flex; align-items: center; height: 26px; padding: 0 9px; border-radius: 7px; background: var(--soft); font-size: 13px; color: var(--ink); }
+.tag--more, .tag--off { background: transparent; box-shadow: inset 0 0 0 1px var(--line-2); color: var(--ink-3); }
+.pc__tip { font-size: 14.5px; background: var(--green-soft); color: var(--ink); border-radius: var(--r-sm); padding: 10px 12px; }
+.pc__tip::before { content: "Tip  "; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--green); white-space: pre; }
+
+/* magic words */
+.magic { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 10px; }
+.pc__ed { font: 500 11px/1.3 var(--mono); color: var(--ink-3); letter-spacing: .02em; margin-top: -4px; }
+.pc { transition: border-color .2s, box-shadow .2s; }
+.pc:hover, .set:hover { border-color: var(--line-2); box-shadow: 0 10px 24px -18px rgba(0,0,0,.3); }
+.set { transition: border-color .2s, box-shadow .2s; }
+.mw { border-radius: var(--r-lg); background: var(--soft); padding: 18px; display: grid; gap: 10px; align-content: start; }
+.mw code { justify-self: start; font: 600 15px/1 var(--mono); background: #fff; color: var(--green); padding: 8px 10px; border-radius: 9px; box-shadow: inset 0 0 0 1.5px var(--green); }
+.mw p { font-size: 15px; color: var(--ink-2); }
+.mw p b { color: var(--ink); }
+
+/* help */
+.qa { display: grid; gap: 8px; }
+.qa details { border: 1.5px solid var(--line); border-radius: var(--r-md); }
+.qa details[open] { border-color: var(--ink); }
+.qa summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; min-height: 58px; padding: 12px 16px 12px 18px; font-weight: 600; font-size: 16px; }
+.qa summary::-webkit-details-marker { display: none; }
+.qa details[open] .chev { transform: rotate(180deg); background: var(--ink); color: #fff; }
+.qa .a { padding: 0 18px 18px; color: var(--ink-2); font-size: 15.5px; display: grid; gap: 8px; }
+.qa .a ul { padding-left: 20px; display: grid; gap: 6px; }
+.stuck { margin-top: 10px; background: var(--ink); color: #fff; border-radius: var(--r-lg); padding: clamp(22px, 4vw, 32px); display: grid; gap: 8px; }
+.stuck b { font: 800 clamp(20px, 3vw, 28px)/1 var(--display); font-stretch: 125%; text-transform: uppercase; }
+.stuck p { color: rgba(255,255,255,.72); max-width: 52ch; }
+
+/* footer */
+.foot { margin-top: clamp(64px, 10vw, 112px); border-top: 1px solid var(--line); }
+.foot .wrap { padding-block: 32px 40px; display: grid; gap: 22px; }
+.dev summary { cursor: pointer; font: 500 12px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); list-style: none; }
+.dev summary::-webkit-details-marker { display: none; }
+.dev summary::after { content: " +"; }
+.dev[open] summary::after { content: " −"; }
+.dev ul { margin-top: 12px; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; color: var(--ink-2); }
+.dev code { font: 500 12.5px/1.3 var(--mono); background: var(--soft); padding: 2px 6px; border-radius: 5px; overflow-wrap: anywhere; }
+.foot .big { width: 100%; height: auto; color: var(--ink); }
+.foot__row { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font: 500 11px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><svg class="wm" viewBox="0 0 2000 344" fill="currentColor" role="img" aria-label="SAVD"><path d="M68 2H354V55H96L62 82V115L96 143H308L375 199V286L308 342H7V289H281L314 261V224L281 196H69L2 140V58Z"/><path d="M492 322L672 2H757L938 322V342H879L720 53H708L549 342H492Z"/><path d="M1042 2H1100L1246 287H1260L1407 2H1464V21L1296 342H1207L1042 21Z"/><path fill-rule="evenodd" d="M1603 2H1906L1996 76V268L1906 342H1603ZM1663 55H1879L1934 101V242L1879 288H1663Z"/></svg><span class="top__tag"><svg class="x" viewBox="0 0 10 14" aria-hidden="true"><path d="M4 0h2v14H4zM0 3.6h10v2H0z" fill="currentColor"/></svg> Saved by grace</span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero__grid">
+    <div class="hero__head">
+      <span class="eyebrow">The SAVD site guide</span>
+      <h1 class="d">Changing the site is <em>easy.</em></h1>
+      <p class="hero__lede">No code. No stress. Every change on the website works the same way, in three steps.</p>
+      <div class="hero__cta"><a class="btn" href="#todo">Show me how<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a><a class="btn btn--line" href="#help">I’m stuck</a></div>
+    </div>
+    <figure class="ed" aria-label="The Shopify theme editor, with the three steps marked">
+      <div class="ed__top"><span class="ed__dots"><i></i><i></i><i></i></span><span class="ed__pg">Home page<svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m2 4 3 3 3-3"/></svg></span><span class="ed__save">Save<span class="mk mk--3">3</span></span><span class="mk mk--1">1</span></div>
+      <div class="ed__body">
+        <div class="ed__side">
+          <span class="ed__lab">Template</span>
+          <span class="ed__row ed__row--on">SAVD banner slideshow<span class="mk mk--2">2</span></span>
+          <span class="ed__row">SAVD product rail</span>
+          <span class="ed__row">SAVD category panels</span>
+          <span class="ed__row">SAVD feature image</span>
+          <span class="ed__row ed__row--add">+ Add section</span>
+        </div>
+        <div class="ed__view">
+          <div class="ed__hdr"><svg class="wm" viewBox="0 0 2000 344" fill="currentColor" role="img" aria-label="SAVD"><path d="M68 2H354V55H96L62 82V115L96 143H308L375 199V286L308 342H7V289H281L314 261V224L281 196H69L2 140V58Z"/><path d="M492 322L672 2H757L938 322V342H879L720 53H708L549 342H492Z"/><path d="M1042 2H1100L1246 287H1260L1407 2H1464V21L1296 342H1207L1042 21Z"/><path fill-rule="evenodd" d="M1603 2H1906L1996 76V268L1906 342H1603ZM1663 55H1879L1934 101V242L1879 288H1663Z"/></svg><i></i></div>
+          <div class="ed__ban"><span>Wear<br>the Word</span><b>Shop now</b></div>
+          <div class="ed__cards"><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </figure>
+    </div>
+    <ol class="steps3">
+      <li><span class="n">1</span><b>Open the editor</b><p>Shopify › Online Store › Themes › Customize.</p></li>
+      <li><span class="n">2</span><b>Click what you see</b><p>Click the part of the page you want to change, then type or pick a photo.</p></li>
+      <li><span class="n">3</span><b>Press Save</b><p>Top right corner. That’s it. Your change is live.</p></li>
+    </ol>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Guide sections">
+  <div class="wrap"><ol>
+    <li><a href="#basics">The basics</a></li>
+    <li><a href="#todo">I want to…</a></li>
+    <li><a href="#settings">Store settings</a></li>
+    <li><a href="#parts">Page parts</a></li>
+    <li><a href="#words">Product tags</a></li>
+    <li><a href="#help">Help!</a></li>
+  </ol></div>
+</nav>
+
+<main class="wrap">
+
+  <!-- BASICS -->
+  <section class="ch" id="basics">
+    <div class="ch__head">
+      <span class="eyebrow">Start here</span>
+      <h2 class="d">The basics</h2>
+      <p class="ch__lede">Here’s how to get in. Do this every time.</p>
+    </div>
+    <div class="path"><span>Shopify admin</span><i>›</i><span>Online Store</span><i>›</i><span>Themes</span><i>›</i><span>Customize</span></div>
+
+    <h3 class="sub">Five words to know</h3>
+    <div class="learn">
+      <div class="mock" aria-hidden="true">
+        <div class="mock__bar"><svg class="wm" viewBox="0 0 2000 344" fill="currentColor" role="img" aria-label="SAVD"><path d="M68 2H354V55H96L62 82V115L96 143H308L375 199V286L308 342H7V289H281L314 261V224L281 196H69L2 140V58Z"/><path d="M492 322L672 2H757L938 322V342H879L720 53H708L549 342H492Z"/><path d="M1042 2H1100L1246 287H1260L1407 2H1464V21L1296 342H1207L1042 21Z"/><path fill-rule="evenodd" d="M1603 2H1906L1996 76V268L1906 342H1603ZM1663 55H1879L1934 101V242L1879 288H1663Z"/></svg></div>
+        <div class="strip strip--a"><span class="strip__lab">Banner</span><span class="callout">Section</span></div>
+        <div class="strip strip--b"><span class="strip__lab">Best sellers</span><div class="blocks"><span class="blk">Block</span><span class="blk">Block</span><span class="blk">Block</span></div></div>
+        <div class="strip strip--c"><span class="strip__lab">Need prayer?</span></div>
+      </div>
+      <div class="words">
+        <div class="word"><b>Section</b><p>One strip of the page, like the banner or a row of products.</p></div>
+        <div class="word"><b>Block</b><p>A small piece inside a section, like one slide or one question.</p></div>
+        <div class="word"><b>Template</b><p>A saved page layout. All product pages share one.</p></div>
+        <div class="word"><b>Theme settings</b><p>Changes for the whole site. Click the gear icon in the editor.</p></div>
+        <div class="word"><b>Tag</b><p>A word you add to a product that turns things on, like a “New” sticker.</p></div>
+      </div>
+    </div>
+
+    <h3 class="sub">Four simple rules</h3>
+    <ul class="rules">
+      <li><b>Always press Save</b><p>Nothing goes live until you do.</p></li>
+      <li><b>Hide, don’t delete</b><p>Click the eye icon to hide a section. You can bring it back anytime.</p></li>
+      <li><b>One product page = all of them</b><p>Changing the product page layout changes it for every product.</p></li>
+      <li><b>Not sure? Make a copy</b><p>Themes › ⋯ › Duplicate. Practice on the copy.</p></li>
+    </ul>
+  </section>
+
+  <!-- TASKS -->
+  <section class="ch" id="todo">
+    <div class="ch__head">
+      <span class="eyebrow">Step by step</span>
+      <h2 class="d">I want to…</h2>
+      <p class="ch__lede">Find what you need, tap it, and follow the steps.</p>
+    </div>
+    <label class="find" for="tq"><span class="sr">Search what you want to do</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="tq" type="search" placeholder="Try “banner”, “sale” or “free shipping”" autocomplete="off"></label>
+    <span class="count" id="tcount" aria-live="polite"></span>
+
+    <div id="tasks">
+      <div class="tgroup"><h3>Home page</h3>
+        <details class="task" id="t-banner"><summary><span class="task__t">Change the big banner at the top</span><span class="time">2 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Customize</span><i>›</i><span>Home page</span><i>›</i><span>SAVD banner slideshow</span></div>
+          <ol class="how">
+            <li><span>Click <b>SAVD banner slideshow</b> on the left.</span></li>
+            <li><span>Click a banner to change it, or click <b>Add Banner</b> for a new one.</span></li>
+            <li><span>Pick a <b>wide picture</b> for computers and a <b>tall picture</b> for phones.</span></li>
+            <li><span>Paste the <b>Link</b> (the page it should open).</span></li>
+            <li><span>Press <b>Save</b>.</span></li>
+          </ol>
+          <p class="good"><b>Good to know:</b> the words go inside the picture itself. Ask design for both sizes (2400px wide and 1200px wide).</p>
+        </div></details>
+
+        <details class="task" id="t-rail"><summary><span class="task__t">Change which products show in a row</span><span class="time">1 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Customize</span><i>›</i><span>Home page</span><i>›</i><span>SAVD product rail</span></div>
+          <ol class="how">
+            <li><span>Click the row you want (for example <b>Best sellers</b>).</span></li>
+            <li><span>Click a <b>Tab</b> and choose a different <b>Collection</b>.</span></li>
+            <li><span>Press <b>Save</b>.</span></li>
+          </ol>
+          <p class="good"><b>Good to know:</b> the row shows whatever is in that collection. To change the products, change the collection in Shopify.</p>
+        </div></details>
+
+        <details class="task" id="t-ann"><summary><span class="task__t">Change the message bar at the very top</span><span class="time">1 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Customize</span><i>›</i><span>Header</span><i>›</i><span>SAVD announcement</span></div>
+          <ol class="how">
+            <li><span>Click <b>SAVD announcement</b>.</span></li>
+            <li><span>Click a <b>Message</b> to edit it, or <b>Add Message</b> for a new one.</span></li>
+            <li><span>Press <b>Save</b>.</span></li>
+          </ol>
+          <p class="good"><b>Good to know:</b> keep each message short so it fits on a phone.</p>
+        </div></details>
+      </div>
+
+      <div class="tgroup"><h3>Products</h3>
+        <details class="task" id="t-new"><summary><span class="task__t">Add a new product so it looks right</span><span class="time">5 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Shopify admin</span><i>›</i><span>Products</span><i>›</i><span>Add product</span></div>
+          <ol class="how">
+            <li><span>Put the type in the <b>title</b>: “Hoodie”, “Shorts” or “Tee”. The site uses this to pick the right size chart.</span></li>
+            <li><span>Add <b>tags</b> (see <a href="#words">Product tags</a>), like <span class="word-tag">New</span>.</span></li>
+            <li><span>Use simple color names like Black, White, Green, Navy. They get the right color dot.</span></li>
+            <li><span>Press <b>Save</b>.</span></li>
+          </ol>
+        </div></details>
+
+        <details class="task" id="t-sale"><summary><span class="task__t">Put a product on sale</span><span class="time">1 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Shopify admin</span><i>›</i><span>Products</span><i>›</i><span>Pricing</span></div>
+          <ol class="how">
+            <li><span>Put the <b>old price</b> in <b>Compare-at price</b>.</span></li>
+            <li><span>Put the <b>sale price</b> in <b>Price</b>.</span></li>
+            <li><span>Press <b>Save</b>. A green “−20%” sticker shows up by itself.</span></li>
+          </ol>
+        </div></details>
+
+        <details class="task" id="t-b2g1"><summary><span class="task__t">Add a product to Buy 2 Get 1</span><span class="time">1 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Shopify admin</span><i>›</i><span>Products</span><i>›</i><span>Tags</span></div>
+          <ol class="how">
+            <li><span>Open the product.</span></li>
+            <li><span>Add the tag <span class="word-tag">B2G1</span>.</span></li>
+            <li><span>Press <b>Save</b>. The “Buy 2, get 1 free” line shows up by itself.</span></li>
+          </ol>
+          <p class="good"><b>Good to know:</b> the tag only shows the message. The real discount is set in <b>Shopify › Discounts</b>, so make sure that’s on too.</p>
+        </div></details>
+
+        <details class="task" id="t-final"><summary><span class="task__t">Mark something as final sale</span><span class="time">1 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <ol class="how">
+            <li><span>Open the product in Shopify.</span></li>
+            <li><span>Add the tag <span class="word-tag">final-sale</span>.</span></li>
+            <li><span>Press <b>Save</b>. The cart now says “Final sale · no returns”.</span></li>
+          </ol>
+        </div></details>
+
+        <details class="task" id="t-dot"><summary><span class="task__t">Fix a color dot that’s the wrong color</span><span class="time">2 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Customize</span><i>›</i><span>Theme settings</span><i>›</i><span>Color swatches</span></div>
+          <ol class="how">
+            <li><span>Click the <b>gear icon</b>, then <b>Color swatches</b>.</span></li>
+            <li><span>Find the color name, or scroll to <b>More colors</b> at the bottom.</span></li>
+            <li><span>Type it like this: <span class="word-tag">Sand: #d8c7a3</span></span></li>
+            <li><span>Press <b>Save</b>.</span></li>
+          </ol>
+          <p class="good"><b>Good to know:</b> the name has to match the color name on the product exactly.</p>
+        </div></details>
+
+        <details class="task" id="t-reviews"><summary><span class="task__t">Show real customer reviews</span><span class="time">2 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Customize</span><i>›</i><span>Products</span><i>›</i><span>SAVD reviews</span></div>
+          <ol class="how">
+            <li><span>Click <b>SAVD reviews</b>.</span></li>
+            <li><span>Click <b>Add block</b> › <b>Apps</b> › <b>Loox</b>.</span></li>
+            <li><span>Press <b>Save</b>. Real reviews replace the sample ones.</span></li>
+          </ol>
+        </div></details>
+      </div>
+
+      <div class="tgroup"><h3>Whole site</h3>
+        <details class="task" id="t-ship"><summary><span class="task__t">Change the free shipping amount or free gift</span><span class="time">2 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Customize</span><i>›</i><span>Theme settings</span><i>›</i><span>SAVD</span><i>›</i><span>Offers</span></div>
+          <ol class="how">
+            <li><span>Change <b>Free shipping + gift threshold</b> (now $120).</span></li>
+            <li><span>Change <b>Free gift product</b> if the gift is changing.</span></li>
+            <li><span>Press <b>Save</b>.</span></li>
+            <li><span>Also change the real free shipping in <b>Shopify › Settings › Shipping</b> so it matches.</span></li>
+          </ol>
+          <p class="good"><b>Good to know:</b> check the top message bar doesn’t still say the old amount.</p>
+        </div></details>
+
+        <details class="task" id="t-colors"><summary><span class="task__t">Change brand or button colors</span><span class="time">2 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Customize</span><i>›</i><span>Theme settings</span><i>›</i><span>SAVD</span></div>
+          <ol class="how">
+            <li><span>Click the <b>gear icon</b>, then <b>SAVD</b>.</span></li>
+            <li><span>Change the colors under <b>Brand</b> or <b>Buttons</b>.</span></li>
+            <li><span>Press <b>Save</b>. The whole site updates.</span></li>
+          </ol>
+        </div></details>
+
+        <details class="task" id="t-numbers"><summary><span class="task__t">Update the review numbers (4.7 stars, 18,852 reviews)</span><span class="time">1 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Customize</span><i>›</i><span>Theme settings</span><i>›</i><span>SAVD</span><i>›</i><span>Reviews</span></div>
+          <ol class="how">
+            <li><span>Type the new <b>Store rating</b>, <b>Review count</b> and <b>Happy customers</b>.</span></li>
+            <li><span>Press <b>Save</b>.</span></li>
+          </ol>
+        </div></details>
+
+        <details class="task" id="t-social"><summary><span class="task__t">Change Instagram, TikTok or other social links</span><span class="time">1 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Customize</span><i>›</i><span>Theme settings</span><i>›</i><span>SAVD</span><i>›</i><span>Social links</span></div>
+          <ol class="how">
+            <li><span>Paste the full link (starting with https://).</span></li>
+            <li><span>Leave a box empty to hide that icon.</span></li>
+            <li><span>Press <b>Save</b>.</span></li>
+          </ol>
+        </div></details>
+      </div>
+
+      <div class="tgroup"><h3>Pages &amp; menus</h3>
+        <details class="task" id="t-faq"><summary><span class="task__t">Add or change an FAQ question</span><span class="time">2 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Customize</span><i>›</i><span>Pages</span><i>›</i><span>FAQ</span></div>
+          <ol class="how">
+            <li><span>Pick the <b>FAQ page</b> from the page menu at the top of the editor.</span></li>
+            <li><span>Click the <b>SAVD FAQ</b> group the question belongs in.</span></li>
+            <li><span>Click a question to edit it, or <b>Add block › Question</b>.</span></li>
+            <li><span>Press <b>Save</b>.</span></li>
+          </ol>
+        </div></details>
+
+        <details class="task" id="t-menu"><summary><span class="task__t">Change the menu</span><span class="time">3 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Shopify admin</span><i>›</i><span>Online Store</span><i>›</i><span>Navigation</span><i>›</i><span>Main menu</span></div>
+          <ol class="how">
+            <li><span>Drag links to reorder. Drag one under another to make a dropdown.</span></li>
+            <li><span>Click <b>Add menu item</b> for a new link.</span></li>
+            <li><span>Press <b>Save menu</b>.</span></li>
+          </ol>
+          <p class="good"><b>Photos in the dropdown:</b> Customize › Header › Add <b>Mega menu card</b>. In “Show under menu item”, type the menu word exactly, like <span class="word-tag">Men</span>.</p>
+        </div></details>
+
+        <details class="task" id="t-colbanner"><summary><span class="task__t">Add a banner photo to a collection page</span><span class="time">2 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Shopify admin</span><i>›</i><span>Collections</span><i>›</i><span>Metafields</span></div>
+          <ol class="how">
+            <li><span>Open the collection and scroll to the bottom (<b>Metafields</b>).</span></li>
+            <li><span>Add a photo to <b>banner</b>, and a tall one to <b>banner mobile</b>.</span></li>
+            <li><span>Press <b>Save</b>.</span></li>
+          </ol>
+          <p class="good"><b>Good to know:</b> don’t see those boxes? Ask Grant to set them up once.</p>
+        </div></details>
+
+        <details class="task" id="t-layout"><summary><span class="task__t">Make a new page with a ready-made layout</span><span class="time">3 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <div class="path path--sm"><span>Shopify admin</span><i>›</i><span>Online Store</span><i>›</i><span>Pages</span><i>›</i><span>Add page</span></div>
+          <ol class="how">
+            <li><span>Type a title and press <b>Save</b>.</span></li>
+            <li><span>On the right, find <b>Theme template</b> and pick a layout, like <b>faq</b>, <b>contact</b> or <b>landing</b>.</span></li>
+            <li><span>Press <b>Save</b>, then open it in Customize to change the words.</span></li>
+          </ol>
+        </div></details>
+      </div>
+
+      <div class="tgroup"><h3>New drops</h3>
+        <details class="task" id="t-drop"><summary><span class="task__t">Set up a countdown page for a new drop</span><span class="time">10 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <ol class="how">
+            <li><span>Make a new page and pick the <b>coming-soon</b> template (see “Make a new page” above).</span></li>
+            <li><span>Open it in Customize and click <b>SAVD coming soon</b>.</span></li>
+            <li><span>Type the <b>drop date</b> like <span class="word-tag">2026-12-05</span> and <b>time</b> like <span class="word-tag">18:00</span>. Pick the time zone.</span></li>
+            <li><span>Click <b>Add Product</b> for each item you want to tease. Turn on blur to keep it a surprise.</span></li>
+            <li><span>Press <b>Save</b>.</span></li>
+          </ol>
+          <p class="good"><b>Good to know:</b> people who sign up get the tag <span class="word-tag">coming-soon</span>, so you can email them all on launch day.</p>
+        </div></details>
+
+        <details class="task" id="t-lock"><summary><span class="task__t">Lock the whole site with a password</span><span class="time">3 min</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <ol class="how">
+            <li><span>Shopify admin › Online Store › Preferences › turn on <b>Password protection</b>.</span></li>
+            <li><span>In Customize, pick <b>Password page</b> from the page menu.</span></li>
+            <li><span>Change the words and photo in <b>SAVD password page</b>.</span></li>
+            <li><span>Press <b>Save</b>. Turn the password off on launch day.</span></li>
+          </ol>
+        </div></details>
+      </div>
+
+      <div class="tgroup"><h3>Ask for help</h3>
+        <details class="task" id="t-size"><summary><span class="task__t">Change the numbers in the size charts</span><span class="time time--dev">Ask Grant</span><span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="task__body">
+          <p class="good">The size chart numbers are built into the site’s code, so this one is for Grant. Send the new numbers in inches and cm and which product they’re for.</p>
+        </div></details>
+      </div>
+    </div>
+    <p class="none" id="tnone" hidden>Nothing matches that yet. Try one simple word, like “banner” or “price”.</p>
+  </section>
+
+  <!-- SETTINGS -->
+  <section class="ch" id="settings">
+    <div class="ch__head">
+      <span class="eyebrow">Whole site</span>
+      <h2 class="d">Store settings</h2>
+      <p class="ch__lede">These change the whole site at once. Open them by clicking the <b>gear icon</b> in the editor, then <b>SAVD</b>.</p>
+    </div>
+    <div class="path"><span>Customize</span><i>›</i><span>Gear icon</span><i>›</i><span>SAVD</span></div>
+    <div class="sets">
+      <div class="set"><div class="set__top"><b>Brand colors</b></div><p>The main colors used everywhere.</p><div class="swrow"><span class="sw"><i class="dot" style="background:#0a0a0a"></i>Ink</span><span class="sw"><i class="dot" style="background:#224940"></i>SAVD green</span><span class="sw"><i class="dot" style="background:#9cc9b8"></i>Mint</span><span class="sw"><i class="dot" style="background:#f2f2f2"></i>Light gray</span></div></div>
+      <div class="set"><div class="set__top"><b>Button colors</b><span class="now">Black, green on hover</span></div><p>Add to bag and other main buttons, the selected size, and sale stickers.</p></div>
+      <div class="set"><div class="set__top"><b>Free shipping amount</b><span class="now">$120</span></div><p>The amount the cart progress bar counts up to.</p></div>
+      <div class="set"><div class="set__top"><b>Free gift</b><span class="now">SAVD Cross Necklace</span></div><p>The gift shown in the cart when people spend enough.</p></div>
+      <div class="set"><div class="set__top"><b>Buy 2 Get 1</b><span class="now">Tag: B2G1</span></div><p>The tag word, and the words shoppers see (“Buy 2, get 1 free”).</p></div>
+      <div class="set"><div class="set__top"><b>Cart extras</b><span class="now">All on</span></div><p>“Complete your look” products, size check, and the discount code box in the slide-out cart.</p></div>
+      <div class="set"><div class="set__top"><b>Social links</b><span class="now">Instagram, Facebook</span></div><p>The icons at the bottom of the site. Empty boxes are hidden.</p></div>
+      <div class="set"><div class="set__top"><b>Review numbers</b><span class="now">4.7 · 18,852 · 350,000+</span></div><p>Star rating, review count and happy customers shown around the site.</p></div>
+      <div class="set"><div class="set__top"><b>Color swatches</b><span class="now">10 colors set</span></div><p>The little color dots on products. Its own menu, right under SAVD.</p><div class="swrow"><span class="sw"><i class="dot" style="background:#0a0a0a"></i>Black</span><span class="sw"><i class="dot" style="background:#f4f4f2"></i>White</span><span class="sw"><i class="dot" style="background:#224940"></i>Green</span><span class="sw"><i class="dot" style="background:#8d8d8d"></i>Gray</span><span class="sw"><i class="dot" style="background:#3a3a3a"></i>Charcoal</span><span class="sw"><i class="dot" style="background:#1f2a44"></i>Navy</span><span class="sw"><i class="dot" style="background:#ece6d8"></i>Cream</span><span class="sw"><i class="dot" style="background:#5b5d3e"></i>Camo</span></div></div>
+    </div>
+    <p class="good"><b>Leave these alone:</b> “Load SAVD fonts”, “Load Horizon scripts only when needed” and “Use the SAVD cart drawer”. They keep the site working. Only change them if Grant asks.</p>
+  </section>
+
+  <!-- PARTS -->
+  <section class="ch" id="parts">
+    <div class="ch__head">
+      <span class="eyebrow">What’s what</span>
+      <h2 class="d">Page parts</h2>
+      <p class="ch__lede">Every part of the site, in plain words. Search for the name you see in the editor, or tap a page.</p>
+    </div>
+    <label class="find" for="pq"><span class="sr">Search page parts</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="pq" type="search" placeholder="Try “FAQ”, “countdown” or “reviews”" autocomplete="off"></label>
+    <div class="filters" role="group" aria-label="Show parts for"><button type="button" class="fbtn" aria-pressed="true" data-f="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-f="global">Every page</button><button type="button" class="fbtn" aria-pressed="false" data-f="home">Home page</button><button type="button" class="fbtn" aria-pressed="false" data-f="product">Product pages</button><button type="button" class="fbtn" aria-pressed="false" data-f="shop">Shopping &amp; cart</button><button type="button" class="fbtn" aria-pressed="false" data-f="info">Help pages</button><button type="button" class="fbtn" aria-pressed="false" data-f="mission">Giving &amp; faith</button><button type="button" class="fbtn" aria-pressed="false" data-f="launch">New drops</button><button type="button" class="fbtn" aria-pressed="false" data-f="other">Blog &amp; extras</button></div>
+    <span class="count" id="pcount" aria-live="polite"></span>
+    <div class="parts" id="partlist"><article class="pc" data-cat="global" data-q="savd announcement the thin black strip at the very top with messages that change every few seconds. each message is its own block. keep them short so they fit on a phone. every page message left mark left text right-side links seconds per message background text">
+  <h3>Announcement</h3>
+  <span class="pc__ed">In the editor: SAVD announcement</span>
+  <p class="pc__what">The thin black strip at the very top with messages that change every few seconds.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Every page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Message</p><p class="pc__tip">Each message is its own block. Keep them short so they fit on a phone.</p>
+</article><article class="pc" data-cat="global" data-q="savd header the top bar with the logo, menu, search and bag. to add a photo to the dropdown menu, type the menu word exactly, like men. every page mega menu card mobile featured card main menu show search search placeholder search suggestions trending label trending products collection show account icon hide navbar while scrolling down bag label  featured collections featured heading featured position featured card size menu text size menu color open the first menu group show help links show policy links help links menu footer text contact link">
+  <h3>Header</h3>
+  <span class="pc__ed">In the editor: SAVD header</span>
+  <p class="pc__what">The top bar with the logo, menu, search and bag.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Every page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Mega menu card, Mobile featured card</p><p class="pc__tip">To add a photo to the dropdown menu, type the menu word exactly, like Men.</p>
+</article><article class="pc" data-cat="global" data-q="savd footer the bottom of every page: email sign-up, links, and the big savd logo.  every page promise menu column  eyebrow heading text button success message  copyright name tagline legal links menu show payment icons show large savd wordmark">
+  <h3>Footer</h3>
+  <span class="pc__ed">In the editor: SAVD footer</span>
+  <p class="pc__what">The bottom of every page: email sign-up, links, and the big SAVD logo.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Every page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Promise, Menu column</p>
+</article><article class="pc" data-cat="home" data-q="savd banner slideshow the big banners at the top of the home page that slide by. upload one wide picture for computers and one tall picture for phones. home page banner accessible label auto-rotate seconds per slide show slide controls  use the mobile banner’s own shape mobile banner height  keep within the screen height top spacing">
+  <h3>Banner slideshow</h3>
+  <span class="pc__ed">In the editor: SAVD banner slideshow</span>
+  <p class="pc__what">The big banners at the top of the home page that slide by.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Home page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Banner</p><p class="pc__tip">Upload one wide picture for computers and one tall picture for phones.</p>
+</article><article class="pc" data-cat="home" data-q="savd product rail a row of products you can swipe through, like “best sellers”. each tab shows one collection. change the collection to change the products. home page landing page lookbook page giving-back products tab small label heading view all link view all label products per tab large cards (3.4 per row) hide when the collection is empty background space above  image small label title link button">
+  <h3>Product rail</h3>
+  <span class="pc__ed">In the editor: SAVD product rail</span>
+  <p class="pc__what">A row of products you can swipe through, like “Best sellers”.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Home page</span><span class="tag">Landing page</span><span class="tag">Lookbook page</span><span class="tag">Giving-back products</span></span></div>
+  <p class="pc__row"><b>You can add</b> Tab</p><p class="pc__tip">Each tab shows one collection. Change the collection to change the products.</p>
+</article><article class="pc" data-cat="home" data-q="savd category panels big photo boxes that link to collections, like shorts or tees.  home page category small label heading text background space above">
+  <h3>Category panels</h3>
+  <span class="pc__ed">In the editor: SAVD category panels</span>
+  <p class="pc__what">Big photo boxes that link to collections, like Shorts or Tees.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Home page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Category</p>
+</article><article class="pc" data-cat="home" data-q="savd banner grid three photo boxes side by side, each with words and a button. photo is very light? tick “dark text” so people can read it. home page lookbook page banner small label heading layout (3 banners) desktop height mobile height fallback product photo offset background space above">
+  <h3>Banner grid</h3>
+  <span class="pc__ed">In the editor: SAVD banner grid</span>
+  <p class="pc__what">Three photo boxes side by side, each with words and a button.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Home page</span><span class="tag">Lookbook page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Banner</p><p class="pc__tip">Photo is very light? Tick “Dark text” so people can read it.</p>
+</article><article class="pc" data-cat="home" data-q="savd feature image one big photo with a heading and a button on top.  home page landing page product pages  image mobile image default photo small label heading text button link text position darken photo desktop height mobile height edge to edge space above">
+  <h3>Feature image</h3>
+  <span class="pc__ed">In the editor: SAVD feature image</span>
+  <p class="pc__what">One big photo with a heading and a button on top.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Home page</span><span class="tag">Landing page</span><span class="tag">Product pages</span></span></div>
+  
+</article><article class="pc" data-cat="home" data-q="savd mission a big sentence with small photos inside it, then a short paragraph.  home page  small label words before first photo first photo words before second photo second photo last words text button button link second link second link url space above">
+  <h3>Mission</h3>
+  <span class="pc__ed">In the editor: SAVD mission</span>
+  <p class="pc__what">A big sentence with small photos inside it, then a short paragraph.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Home page</span></span></div>
+  
+</article><article class="pc" data-cat="home" data-q="savd social proof star rating, customer numbers, customer photos and short reviews.  home page landing page customer photo review small label heading text stat 1 stat 1 label show stars under stat 1 stat 2 stat 2 label button button link background space above">
+  <h3>Social proof</h3>
+  <span class="pc__ed">In the editor: SAVD social proof</span>
+  <p class="pc__what">Star rating, customer numbers, customer photos and short reviews.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Home page</span><span class="tag">Landing page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Customer photo, Review</p>
+</article><article class="pc" data-cat="home" data-q="savd shop the look customer photos. tap one to see and buy what they are wearing.  home page post small label heading text button button link popup products label layout background space above">
+  <h3>Shop the look</h3>
+  <span class="pc__ed">In the editor: SAVD shop the look</span>
+  <p class="pc__what">Customer photos. Tap one to see and buy what they are wearing.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Home page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Post</p>
+</article><article class="pc" data-cat="home" data-q="savd call to action a green strip with a heading and one button.  home page about page giving page landing page returns page giving-back products  small label heading text button link background space above">
+  <h3>Call to action</h3>
+  <span class="pc__ed">In the editor: SAVD call to action</span>
+  <p class="pc__what">A green strip with a heading and one button.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Home page</span><span class="tag">About page</span><span class="tag">Giving page</span><span class="tag">Landing page</span><span class="tag tag--more">+2 more</span></span></div>
+  
+</article><article class="pc" data-cat="home" data-q="savd scrolling statement giant words that scroll sideways across the screen.   phrase separator show outlined second row speed (seconds per loop)">
+  <h3>Scrolling statement</h3>
+  <span class="pc__ed">In the editor: SAVD scrolling statement</span>
+  <p class="pc__what">Giant words that scroll sideways across the screen.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag tag--off">Not on a page yet</span></span></div>
+  <p class="pc__row"><b>You can add</b> Phrase</p>
+</article><article class="pc" data-cat="home" data-q="savd image banner just a photo. no words on it. photo cut off? set the heights to 0. about page  image mobile image default photo desktop height mobile height crop focus link space above">
+  <h3>Image banner</h3>
+  <span class="pc__ed">In the editor: SAVD image banner</span>
+  <p class="pc__what">Just a photo. No words on it.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">About page</span></span></div>
+  <p class="pc__tip">Photo cut off? Set the heights to 0.</p>
+</article><article class="pc" data-cat="home" data-q="savd image with text a photo on one side and words on the other.  about page lookbook page giving-back products product pages  small label heading text button button link big number big number label use a product photo when no photo is picked (product pages) image default photo image on the left anchor id background space above">
+  <h3>Image with text</h3>
+  <span class="pc__ed">In the editor: SAVD image with text</span>
+  <p class="pc__what">A photo on one side and words on the other.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">About page</span><span class="tag">Lookbook page</span><span class="tag">Giving-back products</span><span class="tag">Product pages</span></span></div>
+  
+</article><article class="pc" data-cat="product" data-q="savd product the top of every product page: photos, title, price, sizes and the add to bag button. each part (price, sizes, buttons…) is a block. drag to reorder, or click the eye to hide. giving-back products product pages badges title + rating price variant picker buy buttons free gift progress buy 2 get 1 bundle feature list guarantees accordion text impact callout notice (e.g. final sale) goal progress show breadcrumbs max images show sticky add-to-bag bar match add to bag to the chosen color">
+  <h3>Product</h3>
+  <span class="pc__ed">In the editor: SAVD product</span>
+  <p class="pc__what">The top of every product page: photos, title, price, sizes and the Add to bag button.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Giving-back products</span><span class="tag">Product pages</span></span></div>
+  <p class="pc__row"><b>You can add</b> Badges, Title + rating, Price, Variant picker, Buy buttons, Free gift progress, Buy 2 Get 1 bundle, Feature list, Guarantees, Accordion, Text, Impact callout, Notice (e.g. final sale), Goal progress</p><p class="pc__tip">Each part (price, sizes, buttons…) is a block. Drag to reorder, or click the eye to hide.</p>
+</article><article class="pc" data-cat="product" data-q="savd product details “the details” strip under the product, with a bible verse and feature boxes. it changes by itself for shorts, tees, hoodies and accessories. giving-back products product pages feature tile small label heading — shorts heading — tees heading — hoodies heading — accessories text image product image number verse verse reference hoodie verse hoodie verse reference space above">
+  <h3>Product details</h3>
+  <span class="pc__ed">In the editor: SAVD product details</span>
+  <p class="pc__what">“The details” strip under the product, with a Bible verse and feature boxes.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Giving-back products</span><span class="tag">Product pages</span></span></div>
+  <p class="pc__row"><b>You can add</b> Feature tile</p><p class="pc__tip">It changes by itself for shorts, tees, hoodies and accessories.</p>
+</article><article class="pc" data-cat="product" data-q="savd size guide the size chart on the product page. it picks the right chart for each product.  product pages  small label heading text full size guide page point 1 point 2 point 3  men women boys girls show on products without sizes background space above">
+  <h3>Size guide</h3>
+  <span class="pc__ed">In the editor: SAVD size guide</span>
+  <p class="pc__what">The size chart on the product page. It picks the right chart for each product.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Product pages</span></span></div>
+  
+</article><article class="pc" data-cat="product" data-q="savd pairs well with “pairs well with”: products that go with this one.  product pages  small label heading buy 2 get 1 note products add the free gift product at the end fallback products background space above">
+  <h3>Pairs well with</h3>
+  <span class="pc__ed">In the editor: SAVD pairs well with</span>
+  <p class="pc__what">“Pairs well with”: products that go with this one.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Product pages</span></span></div>
+  
+</article><article class="pc" data-cat="product" data-q="savd brand points up to four short reasons to buy, each with a little icon.  product pages point small label heading background space above">
+  <h3>Brand points</h3>
+  <span class="pc__ed">In the editor: SAVD brand points</span>
+  <p class="pc__what">Up to four short reasons to buy, each with a little icon.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Product pages</span></span></div>
+  <p class="pc__row"><b>You can add</b> Point</p>
+</article><article class="pc" data-cat="product" data-q="savd reviews customer reviews. real reviews come from the loox app. add it with add block › apps. reviews page giving-back products product pages review  small label heading show rating summary link link label reviews app replaces the sample reviews background space above">
+  <h3>Reviews</h3>
+  <span class="pc__ed">In the editor: SAVD reviews</span>
+  <p class="pc__what">Customer reviews.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Reviews page</span><span class="tag">Giving-back products</span><span class="tag">Product pages</span></span></div>
+  <p class="pc__row"><b>You can add</b> Review</p><p class="pc__tip">Real reviews come from the Loox app. Add it with Add block › Apps.</p>
+</article><article class="pc" data-cat="product" data-q="savd you may also like “you may also like”. shopify picks these by itself.  giving-back products product pages  small label heading products background space above">
+  <h3>You may also like</h3>
+  <span class="pc__ed">In the editor: SAVD you may also like</span>
+  <p class="pc__what">“You may also like”. Shopify picks these by itself.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Giving-back products</span><span class="tag">Product pages</span></span></div>
+  
+</article><article class="pc" data-cat="product" data-q="savd recently viewed products this shopper looked at before.  giving-back products  small label heading products background space above">
+  <h3>Recently viewed</h3>
+  <span class="pc__ed">In the editor: SAVD recently viewed</span>
+  <p class="pc__what">Products this shopper looked at before.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Giving-back products</span></span></div>
+  
+</article><article class="pc" data-cat="shop" data-q="savd collection the collection page: banner at the top, then the grid of products.  collection pages promo tile shop more link small label default banner show collection description filter shown as chips chip links (if that filter doesn’t exist) products per page load more label  links small label links heading seo text">
+  <h3>Collection</h3>
+  <span class="pc__ed">In the editor: SAVD collection</span>
+  <p class="pc__what">The collection page: banner at the top, then the grid of products.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Collection pages</span></span></div>
+  <p class="pc__row"><b>You can add</b> Promo tile, Shop more link</p>
+</article><article class="pc" data-cat="shop" data-q="savd collections list a page that lists all your collections.  all collections page  small label heading collections">
+  <h3>Collections list</h3>
+  <span class="pc__ed">In the editor: SAVD collections list</span>
+  <p class="pc__what">A page that lists all your collections.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">All collections page</span></span></div>
+  
+</article><article class="pc" data-cat="shop" data-q="savd search results the search results page.  search page  placeholder suggestions results per page trending small label trending heading trending collection">
+  <h3>Search results</h3>
+  <span class="pc__ed">In the editor: SAVD search results</span>
+  <p class="pc__what">The search results page.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Search page</span></span></div>
+  
+</article><article class="pc" data-cat="shop" data-q="savd cart page the full cart page. most people use the slide-out cart instead.  cart page  show order note">
+  <h3>Cart page</h3>
+  <span class="pc__ed">In the editor: SAVD cart page</span>
+  <p class="pc__what">The full cart page. Most people use the slide-out cart instead.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Cart page</span></span></div>
+  
+</article><article class="pc" data-cat="info" data-q="savd values a heading with a short list of what savd stands for.  about page team orders page value small label heading space above">
+  <h3>Values</h3>
+  <span class="pc__ed">In the editor: SAVD values</span>
+  <p class="pc__what">A heading with a short list of what SAVD stands for.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">About page</span><span class="tag">Team orders page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Value</p>
+</article><article class="pc" data-cat="info" data-q="savd page header the top of help pages: title, short intro and quick-link buttons.  about page ambassadors page contact info page contact page faq page giving page basic pages lookbook page policy pages privacy policy refund policy returns page reviews page shipping policy shipping page size guide page team orders page terms of service track order page  small label title intro help menu chips">
+  <h3>Page header</h3>
+  <span class="pc__ed">In the editor: SAVD page header</span>
+  <p class="pc__what">The top of help pages: title, short intro and quick-link buttons.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">About page</span><span class="tag">Ambassadors page</span><span class="tag">Contact info page</span><span class="tag">Contact page</span><span class="tag tag--more">+15 more</span></span></div>
+  
+</article><article class="pc" data-cat="info" data-q="savd page content plain text. leave it empty and it shows the text you wrote in the page in shopify.  basic pages shipping page  heading text button button link background space above">
+  <h3>Page content</h3>
+  <span class="pc__ed">In the editor: SAVD page content</span>
+  <p class="pc__what">Plain text. Leave it empty and it shows the text you wrote in the page in Shopify.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Basic pages</span><span class="tag">Shipping page</span></span></div>
+  
+</article><article class="pc" data-cat="info" data-q="savd faq questions people can tap to open the answer.  faq page giving page returns page giving-back products product pages question small label heading text link label link add faq structured data (seo) only show on these pages background space above">
+  <h3>FAQ</h3>
+  <span class="pc__ed">In the editor: SAVD FAQ</span>
+  <p class="pc__what">Questions people can tap to open the answer.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">FAQ page</span><span class="tag">Giving page</span><span class="tag">Returns page</span><span class="tag">Giving-back products</span><span class="tag tag--more">+1 more</span></span></div>
+  <p class="pc__row"><b>You can add</b> Question</p>
+</article><article class="pc" data-cat="info" data-q="savd policy policy pages like returns and privacy, with a contents list. the policy words themselves are in shopify settings › policies. contact info page policy pages privacy policy refund policy returns page shipping policy terms of service clause content summary box contents label last updated text help card title help card text help card button help card link space above">
+  <h3>Policy</h3>
+  <span class="pc__ed">In the editor: SAVD policy</span>
+  <p class="pc__what">Policy pages like returns and privacy, with a contents list.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Contact info page</span><span class="tag">Policy pages</span><span class="tag">Privacy policy</span><span class="tag">Refund policy</span><span class="tag tag--more">+3 more</span></span></div>
+  <p class="pc__row"><b>You can add</b> Clause</p><p class="pc__tip">The policy words themselves are in Shopify Settings › Policies.</p>
+</article><article class="pc" data-cat="info" data-q="savd info tiles small boxes with an icon, a title, a line of text and a link.  ambassadors page contact page faq page returns page shipping page track order page tile heading background space above">
+  <h3>Info tiles</h3>
+  <span class="pc__ed">In the editor: SAVD info tiles</span>
+  <p class="pc__what">Small boxes with an icon, a title, a line of text and a link.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Ambassadors page</span><span class="tag">Contact page</span><span class="tag">FAQ page</span><span class="tag">Returns page</span><span class="tag tag--more">+2 more</span></span></div>
+  <p class="pc__row"><b>You can add</b> Tile</p>
+</article><article class="pc" data-cat="info" data-q="savd contact form the contact form.  ambassadors page contact page team orders page  heading tag added to the customer ask for order number ask for social handle + followers (ambassadors) message label message placeholder button success message background space above">
+  <h3>Contact form</h3>
+  <span class="pc__ed">In the editor: SAVD contact form</span>
+  <p class="pc__what">The contact form.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Ambassadors page</span><span class="tag">Contact page</span><span class="tag">Team orders page</span></span></div>
+  
+</article><article class="pc" data-cat="info" data-q="savd track order where customers check where their order is.  track order page  heading text button small text space above">
+  <h3>Track order</h3>
+  <span class="pc__ed">In the editor: SAVD track order</span>
+  <p class="pc__what">Where customers check where their order is.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Track order page</span></span></div>
+  
+</article><article class="pc" data-cat="info" data-q="savd size guide the full size guide page with every chart. the sizes themselves need a developer to change. size guide page care tile fit finder small label fit finder heading fit finder text care heading space above">
+  <h3>Size guide</h3>
+  <span class="pc__ed">In the editor: SAVD size guide</span>
+  <p class="pc__what">The full size guide page with every chart.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Size guide page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Care tile</p><p class="pc__tip">The sizes themselves need a developer to change.</p>
+</article><article class="pc" data-cat="mission" data-q="savd impact a green strip about a giving campaign, with big numbers.  giving page giving-back products stat small label partners heading text photo use a product photo when no photo is picked photo caption background button button link anchor id space above">
+  <h3>Impact</h3>
+  <span class="pc__ed">In the editor: SAVD impact</span>
+  <p class="pc__what">A green strip about a giving campaign, with big numbers.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Giving page</span><span class="tag">Giving-back products</span></span></div>
+  <p class="pc__row"><b>You can add</b> Stat</p>
+</article><article class="pc" data-cat="mission" data-q="savd people cards about the people behind a product, like the kid designers.  giving page giving-back products person small label heading text collection background space above">
+  <h3>People</h3>
+  <span class="pc__ed">In the editor: SAVD people</span>
+  <p class="pc__what">Cards about the people behind a product, like the kid designers.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Giving page</span><span class="tag">Giving-back products</span></span></div>
+  <p class="pc__row"><b>You can add</b> Person</p>
+</article><article class="pc" data-cat="mission" data-q="savd pathway a heading and a short list of steps.  giving page giving-back products step small label heading text background space above">
+  <h3>Pathway</h3>
+  <span class="pc__ed">In the editor: SAVD pathway</span>
+  <p class="pc__what">A heading and a short list of steps.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Giving page</span><span class="tag">Giving-back products</span></span></div>
+  <p class="pc__row"><b>You can add</b> Step</p>
+</article><article class="pc" data-cat="mission" data-q="savd steps numbered steps next to a photo.  giving page giving-back products step small label heading photo use a product photo when no photo is picked photo on the right button button link background space above">
+  <h3>Steps</h3>
+  <span class="pc__ed">In the editor: SAVD steps</span>
+  <p class="pc__what">Numbered steps next to a photo.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Giving page</span><span class="tag">Giving-back products</span></span></div>
+  <p class="pc__row"><b>You can add</b> Step</p>
+</article><article class="pc" data-cat="mission" data-q="savd prayer requests the prayer request page and form.  prayer page point small label heading text verse verse reference   form heading form subheading button success heading success text">
+  <h3>Prayer requests</h3>
+  <span class="pc__ed">In the editor: SAVD prayer requests</span>
+  <p class="pc__what">The prayer request page and form.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Prayer page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Point</p>
+</article><article class="pc" data-cat="mission" data-q="savd verse of the day verse of the day. it changes by itself every day.  prayer page  small label verse shown before loading reference show share button space above">
+  <h3>Verse of the day</h3>
+  <span class="pc__ed">In the editor: SAVD verse of the day</span>
+  <p class="pc__what">Verse of the day. It changes by itself every day.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Prayer page</span></span></div>
+  
+</article><article class="pc" data-cat="launch" data-q="savd coming soon a teaser page for a new drop with a countdown clock and email sign-up.  coming soon page product small label heading text products per row (desktop) tease mode for every product (soft blur)  main drop date main drop time time zone show a countdown under each product show the big countdown countdown label when the timer ends live button live button link  show email signup customer tag placeholder button success message background space above">
+  <h3>Coming soon</h3>
+  <span class="pc__ed">In the editor: SAVD coming soon</span>
+  <p class="pc__what">A teaser page for a new drop with a countdown clock and email sign-up.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Coming soon page</span></span></div>
+  <p class="pc__row"><b>You can add</b> Product</p>
+</article><article class="pc" data-cat="launch" data-q="savd password page the page people see when the store is locked with a password.  password page  background photo mobile background photo darken photo small label heading text countdown to (optional) sign-up button customer tag small text success message show product teaser teaser label teaser collection password button footer tagline">
+  <h3>Password page</h3>
+  <span class="pc__ed">In the editor: SAVD password page</span>
+  <p class="pc__what">The page people see when the store is locked with a password.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Password page</span></span></div>
+  
+</article><article class="pc" data-cat="launch" data-q="savd 404 the page people see when a link is broken.  “page not found”  small label text button button link">
+  <h3>404</h3>
+  <span class="pc__ed">In the editor: SAVD 404</span>
+  <p class="pc__what">The page people see when a link is broken.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">“Page not found”</span></span></div>
+  
+</article><article class="pc" data-cat="other" data-q="savd blog the page that lists blog posts.  blog  small label intro articles per page">
+  <h3>Blog</h3>
+  <span class="pc__ed">In the editor: SAVD blog</span>
+  <p class="pc__what">The page that lists blog posts.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Blog</span></span></div>
+  
+</article><article class="pc" data-cat="other" data-q="savd article a single blog post.  blog posts  show author show more stories">
+  <h3>Article</h3>
+  <span class="pc__ed">In the editor: SAVD article</span>
+  <p class="pc__what">A single blog post.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag">Blog posts</span></span></div>
+  
+</article><article class="pc" data-cat="other" data-q="savd apps an empty box for putting an app on a page.    small label heading text max width full width space above">
+  <h3>Apps</h3>
+  <span class="pc__ed">In the editor: SAVD apps</span>
+  <p class="pc__what">An empty box for putting an app on a page.</p>
+  <div class="pc__where"><b>Find it on</b><span class="tags"><span class="tag tag--off">Not on a page yet</span></span></div>
+  
+</article></div>
+    <p class="none" id="pnone" hidden>Nothing matches. Try a shorter word.</p>
+  </section>
+
+  <!-- TAGS -->
+  <section class="ch" id="words">
+    <div class="ch__head">
+      <span class="eyebrow">Shortcuts</span>
+      <h2 class="d">Product tags</h2>
+      <p class="ch__lede">Add these words as <b>tags</b> on a product in Shopify and the site does the rest. Spell them exactly like this.</p>
+    </div>
+    <div class="magic">
+      <div class="mw"><code>New</code><p>Adds a <b>“New”</b> sticker to the product.</p></div>
+      <div class="mw"><code>B2G1</code><p>Shows <b>“Buy 2, get 1 free”</b> on the product.</p></div>
+      <div class="mw"><code>final-sale</code><p>Shows <b>“Final sale · no returns”</b> in the cart.</p></div>
+      <div class="mw"><code>accessories</code><p>Treats it as an accessory, so <b>no size chart</b>.</p></div>
+      <div class="mw"><code>MPS</code><p>Uses the <b>men’s shorts</b> size chart.</p></div>
+      <div class="mw"><code>WPS</code><p>Uses the <b>women’s shorts</b> size chart.</p></div>
+      <div class="mw"><code>YTH</code><p>Uses the <b>youth</b> size chart.</p></div>
+      <div class="mw"><code>OTS-active</code><p>Uses the <b>oversized tee</b> size chart.</p></div>
+    </div>
+    <p class="good"><b>No tag needed for sales:</b> just fill in the Compare-at price and the “−%” sticker appears.</p>
+  </section>
+
+  <!-- HELP -->
+  <section class="ch" id="help">
+    <div class="ch__head">
+      <span class="eyebrow">Don’t panic</span>
+      <h2 class="d">Help!</h2>
+      <p class="ch__lede">The usual fixes. Most problems take one click.</p>
+    </div>
+    <div class="qa">
+      <details><summary>I changed something but it’s not on the site<span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="a"><ul><li>Did you press <b>Save</b>?</li><li>Are you editing the <b>live</b> theme? In Online Store › Themes, the live one is at the top. Copies are below it.</li><li>Refresh the site page.</li></ul></div></details>
+      <details><summary>Something disappeared from a product page<span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="a"><p>Some parts only show when they should:</p><ul><li><b>Size chart</b> only shows on products with sizes.</li><li><b>Buy 2 Get 1</b> only shows with the <span class="word-tag">B2G1</span> tag.</li><li><b>Goal progress bar</b> only shows once “Raised so far” has a number.</li><li>Someone may have clicked the <b>eye icon</b>. Click it again to show it.</li></ul></div></details>
+      <details><summary>A photo is cut off<span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="a"><p>Add a separate <b>Mobile image</b> if there’s a box for one. On a plain photo, set the heights to <b>0</b> to show the whole picture.</p></div></details>
+      <details><summary>The wrong color dot shows on a product<span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="a"><p>The color name on the product needs to match a name in <b>Color swatches</b>. See <a href="#t-dot">Fix a color dot</a>.</p></div></details>
+      <details><summary>Reviews show fake sample quotes<span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="a"><p>Add the Loox app to that section. See <a href="#t-reviews">Show real customer reviews</a>.</p></div></details>
+      <details><summary>The cart or a page looks broken<span class="chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 5 4 4 4-4"/></svg></span></summary><div class="a"><p>Don’t try to fix it. Take a screenshot, note the page link, and send it to Grant.</p></div></details>
+    </div>
+    <div class="stuck"><b>Still stuck?</b><p>Message Grant with a screenshot and the page link. Nothing you do in the editor is permanent, so don’t worry.</p></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <details class="dev"><summary>For developers</summary><ul>
+      <li>Theme “SAVD by Grant” v1.4.9, built on Horizon 4.3. SAVD files start with <code>savd-</code>, CSS classes with <code>sv-</code>.</li>
+      <li>Colors, fonts and settings: <code>snippets/savd-head.liquid</code> · styles: <code>assets/savd.css</code> · scripts: <code>assets/savd.js</code>, <code>assets/savd-product.js</code>.</li>
+      <li>Cart drawer and size chart numbers (<code>GUIDES</code>): <code>assets/savd-cart.js</code>. Verse of the day: <code>assets/savd-verses.js</code>.</li>
+      <li>Collection metafields: <code>custom.banner</code>, <code>custom.banner_mobile</code>, <code>custom.eyebrow</code>. Product: <code>custom.features</code>, <code>custom.lead</code>.</li>
+      <li>Pull before pushing: the editor writes to <code>config/settings_data.json</code> and <code>templates/*.json</code>. <code>*.horizon.json</code> are stock fallbacks; <code>gp-*</code> belong to GemPages.</li>
+    </ul></details>
+    <svg class="big" viewBox="0 0 2000 344" fill="currentColor" aria-hidden="true"><path d="M68 2H354V55H96L62 82V115L96 143H308L375 199V286L308 342H7V289H281L314 261V224L281 196H69L2 140V58Z"/><path d="M492 322L672 2H757L938 322V342H879L720 53H708L549 342H492Z"/><path d="M1042 2H1100L1246 287H1260L1407 2H1464V21L1296 342H1207L1042 21Z"/><path fill-rule="evenodd" d="M1603 2H1906L1996 76V268L1906 342H1603ZM1663 55H1879L1934 101V242L1879 288H1663Z"/></svg>
+    <div class="foot__row"><span><svg class="x" viewBox="0 0 10 14" aria-hidden="true"><path d="M4 0h2v14H4zM0 3.6h10v2H0z" fill="currentColor"/></svg> Saved by grace</span><span>SAVD site guide · Nov 2026</span></div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  function filter(inputId, itemSel, countId, noneId, extra, label) {
+    var input = document.getElementById(inputId), items = [].slice.call(document.querySelectorAll(itemSel)),
+        count = document.getElementById(countId), none = document.getElementById(noneId);
+    function run() {
+      var words = input.value.toLowerCase().trim().split(/\s+/).filter(Boolean), n = 0;
+      items.forEach(function (el) {
+        var hay = el.dataset.q || (el.dataset.q = el.textContent.toLowerCase());
+        var ok = (!extra || extra(el)) && words.every(function (w) { return hay.indexOf(w) > -1; });
+        el.hidden = !ok; if (ok) n++;
+      });
+      if (itemSel === '.task') [].forEach.call(document.querySelectorAll('.tgroup'), function (g) { g.hidden = !g.querySelector('.task:not([hidden])'); });
+      count.textContent = n + ' of ' + items.length + ' ' + label;
+      none.hidden = n > 0;
+    }
+    input.addEventListener('input', run); run(); return run;
+  }
+  filter('tq', '.task', 'tcount', 'tnone', null, 'guides');
+  var cat = 'all', btns = [].slice.call(document.querySelectorAll('.fbtn'));
+  var runParts = filter('pq', '.pc', 'pcount', 'pnone', function (el) { return cat === 'all' || el.dataset.cat === cat; }, 'parts');
+  btns.forEach(function (b) { b.addEventListener('click', function () {
+    cat = b.dataset.f; btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); runParts();
+  }); });
+
+  function openFromHash() {
+    var el = location.hash && document.getElementById(location.hash.slice(1));
+    if (el && el.tagName === 'DETAILS') { el.hidden = false; el.open = true; }
+  }
+  window.addEventListener('hashchange', openFromHash); openFromHash();
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#t-"]'); if (!a) return;
+    var el = document.getElementById(a.getAttribute('href').slice(1)); if (el) el.open = true;
+  });
+
+  var links = [].slice.call(document.querySelectorAll('.nav a')), secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); }), cur = -1, tick = false;
+  function mark() {
+    tick = false; var y = window.scrollY + 140, i = -1;
+    secs.forEach(function (s, k) { if (s && s.offsetTop <= y) i = k; });
+    if (i === cur) return; cur = i;
+    links.forEach(function (a, k) { a.classList.toggle('on', k === i); });
+    if (i > -1) { var li = links[i].parentNode; li.parentNode.scrollTo({ left: li.offsetLeft - 16, behavior: 'smooth' }); }
+  }
+  window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(mark); } }, { passive: true });
+  mark();
+})();
+</script>
+</body>
+</html>
